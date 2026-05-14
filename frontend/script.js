@@ -13,6 +13,7 @@ const tableBody = document.getElementById("grade-table-body");
 const totalSubjectsEl = document.getElementById("total-subjects");
 const averageMarksEl = document.getElementById("average-marks");
 const gpaEl = document.getElementById("gpa");
+const heroAverageEl = document.getElementById("hero-average");
 
 const showMessage = (message, type = "success") => {
   messageBox.textContent = message;
@@ -36,6 +37,7 @@ const updateSummary = (summary) => {
   totalSubjectsEl.textContent = summary.totalSubjects;
   averageMarksEl.textContent = summary.averageMarks.toFixed(2);
   gpaEl.textContent = summary.gpa.toFixed(2);
+  heroAverageEl.textContent = `${summary.averageMarks.toFixed(2)}%`;
 };
 
 const renderGrades = (grades) => {
@@ -181,4 +183,3 @@ refreshBtn.addEventListener("click", fetchGrades);
 tableBody.addEventListener("click", handleTableClick);
 
 fetchGrades();
-

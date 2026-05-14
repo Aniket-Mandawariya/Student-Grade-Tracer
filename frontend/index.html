@@ -8,99 +8,132 @@
   </head>
   <body>
     <div class="page">
-      <header class="hero">
-        <div>
+      <header class="hero card hero-card">
+        <div class="hero-copy">
           <p class="eyebrow">Student Grade Tracker</p>
-          <h1>Track subjects, marks, average, and GPA in one place</h1>
+          <h1>Organize marks, monitor progress, and manage grades with ease</h1>
           <p class="hero-text">
-            A simple full-stack CRUD web application built with HTML, CSS,
-            JavaScript, Node.js, Express.js, and MongoDB Atlas.
+            Keep subject records in one clean dashboard, update grades anytime,
+            and let the app calculate your average marks and GPA automatically.
           </p>
+        </div>
+
+        <div class="hero-panel">
+          <div class="hero-chip">Full-Stack CRUD Project</div>
+          <div class="hero-metric">
+            <span>Academic Overview</span>
+            <strong id="hero-average">0.00%</strong>
+            <small>Live average based on saved subject marks</small>
+          </div>
         </div>
       </header>
 
-      <main class="grid">
-        <section class="card form-card">
-          <h2 id="form-title">Add New Subject</h2>
-          <form id="grade-form">
-            <input type="hidden" id="grade-id" />
-
-            <div class="form-group">
-              <label for="subject">Subject Name</label>
-              <input
-                type="text"
-                id="subject"
-                placeholder="Example: Mathematics"
-                required
-              />
+      <main class="dashboard">
+        <section class="left-column">
+          <section class="card form-card">
+            <div class="section-head">
+              <div>
+                <p class="section-label">Manage Grades</p>
+                <h2 id="form-title">Add New Subject</h2>
+              </div>
             </div>
 
-            <div class="form-group">
-              <label for="marks">Marks</label>
-              <input
-                type="number"
-                id="marks"
-                placeholder="Enter marks out of 100"
-                min="0"
-                max="100"
-                required
-              />
-            </div>
+            <form id="grade-form">
+              <input type="hidden" id="grade-id" />
 
-            <div class="button-row">
-              <button type="submit" class="btn primary" id="submit-btn">
-                Add Grade
-              </button>
-              <button type="button" class="btn secondary hidden" id="cancel-btn">
-                Cancel Edit
-              </button>
-            </div>
-          </form>
-          <p id="message-box" class="message-box"></p>
+              <div class="form-group">
+                <label for="subject">Subject Name</label>
+                <input
+                  type="text"
+                  id="subject"
+                  placeholder="Example: Mathematics"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="marks">Marks</label>
+                <input
+                  type="number"
+                  id="marks"
+                  placeholder="Enter marks out of 100"
+                  min="0"
+                  max="100"
+                  required
+                />
+              </div>
+
+              <div class="button-row">
+                <button type="submit" class="btn primary" id="submit-btn">
+                  Add Grade
+                </button>
+                <button type="button" class="btn secondary hidden" id="cancel-btn">
+                  Cancel Edit
+                </button>
+              </div>
+            </form>
+            <p id="message-box" class="message-box"></p>
+          </section>
+
+          <section class="card note-card">
+            <p class="section-label">Quick Tips</p>
+            <ul class="tips-list">
+              <li>Add marks from 0 to 100 for each subject.</li>
+              <li>Use the edit button whenever a grade changes.</li>
+              <li>Delete records you no longer want in the dashboard.</li>
+            </ul>
+          </section>
         </section>
 
-        <section class="card stats-card">
-          <h2>Performance Summary</h2>
-          <div class="stats-grid">
-            <div class="stat-box">
+        <section class="right-column">
+          <section class="stats-grid">
+            <article class="card stat-box stat-primary">
               <span>Total Subjects</span>
               <strong id="total-subjects">0</strong>
-            </div>
-            <div class="stat-box">
+              <small>Subjects currently saved</small>
+            </article>
+
+            <article class="card stat-box stat-accent">
               <span>Average Marks</span>
               <strong id="average-marks">0.00</strong>
-            </div>
-            <div class="stat-box">
+              <small>Overall academic average</small>
+            </article>
+
+            <article class="card stat-box stat-warm">
               <span>GPA</span>
               <strong id="gpa">0.00</strong>
+              <small>Calculated on a 4.0 scale</small>
+            </article>
+          </section>
+
+          <section class="card table-card">
+            <div class="table-header">
+              <div>
+                <p class="section-label">Records</p>
+                <h2>All Subject Grades</h2>
+              </div>
+              <button type="button" class="btn secondary" id="refresh-btn">
+                Refresh Data
+              </button>
             </div>
-          </div>
-        </section>
 
-        <section class="card table-card">
-          <div class="table-header">
-            <h2>All Subject Grades</h2>
-            <button type="button" class="btn secondary" id="refresh-btn">
-              Refresh
-            </button>
-          </div>
-
-          <div class="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th>Subject</th>
-                  <th>Marks</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="grade-table-body">
-                <tr>
-                  <td colspan="3" class="empty-state">Loading data...</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Subject</th>
+                    <th>Marks</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="grade-table-body">
+                  <tr>
+                    <td colspan="3" class="empty-state">Loading data...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
         </section>
       </main>
     </div>
@@ -108,4 +141,3 @@
     <script src="script.js"></script>
   </body>
 </html>
-
