@@ -1,0 +1,28 @@
+{
+  "name": "student-grade-tracker",
+  "version": "1.0.0",
+  "description": "A beginner-friendly full-stack CRUD web application for tracking student grades.",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js"
+  },
+  "keywords": [
+    "student",
+    "grades",
+    "crud",
+    "express",
+    "mongodb"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
+
