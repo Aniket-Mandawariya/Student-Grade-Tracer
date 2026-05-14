@@ -42,6 +42,16 @@
               <input type="hidden" id="grade-id" />
 
               <div class="form-group">
+                <label for="student-name">Student Name</label>
+                <input
+                  type="text"
+                  id="student-name"
+                  placeholder="Example: Aniket Mandawariya"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
                 <label for="subject">Subject Name</label>
                 <input
                   type="text"
@@ -121,6 +131,7 @@
               <table>
                 <thead>
                   <tr>
+                    <th>Student Name</th>
                     <th>Subject</th>
                     <th>Marks</th>
                     <th>Actions</th>
@@ -128,7 +139,7 @@
                 </thead>
                 <tbody id="grade-table-body">
                   <tr>
-                    <td colspan="3" class="empty-state">Loading data...</td>
+                    <td colspan="4" class="empty-state">Loading data...</td>
                   </tr>
                 </tbody>
               </table>

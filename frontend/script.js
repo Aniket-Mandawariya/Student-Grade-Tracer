@@ -2,6 +2,7 @@ const API_URL = "/api/grades";
 
 const gradeForm = document.getElementById("grade-form");
 const gradeIdInput = document.getElementById("grade-id");
+const studentNameInput = document.getElementById("student-name");
 const subjectInput = document.getElementById("subject");
 const marksInput = document.getElementById("marks");
 const formTitle = document.getElementById("form-title");
@@ -44,7 +45,7 @@ const renderGrades = (grades) => {
   if (!grades.length) {
     tableBody.innerHTML = `
       <tr>
-        <td colspan="3" class="empty-state">No grade records found. Add your first subject.</td>
+        <td colspan="4" class="empty-state">No grade records found. Add your first subject.</td>
       </tr>
     `;
     return;
@@ -54,11 +55,12 @@ const renderGrades = (grades) => {
     .map(
       (grade) => `
         <tr>
+          <td>${grade.studentName || "-"}</td>
           <td>${grade.subject}</td>
           <td>${grade.marks}</td>
           <td>
             <div class="action-buttons">
-              <button class="action-btn secondary edit-btn" data-id="${grade._id}" data-subject="${grade.subject}" data-marks="${grade.marks}">
+              <button class="action-btn secondary edit-btn" data-id="${grade._id}" data-name="${grade.studentName || ""}" data-subject="${grade.subject}" data-marks="${grade.marks}">
                 Edit
               </button>
               <button class="action-btn danger delete-btn" data-id="${grade._id}">
@@ -76,7 +78,7 @@ const fetchGrades = async () => {
   try {
     tableBody.innerHTML = `
       <tr>
-        <td colspan="3" class="empty-state">Loading data...</td>
+        <td colspan="4" class="empty-state">Loading data...</td>
       </tr>
     `;
 
@@ -92,7 +94,7 @@ const fetchGrades = async () => {
   } catch (error) {
     tableBody.innerHTML = `
       <tr>
-        <td colspan="3" class="empty-state">Failed to load data.</td>
+        <td colspan="4" class="empty-state">Failed to load data.</td>
       </tr>
     `;
     showMessage(error.message, "error");
@@ -103,11 +105,12 @@ const handleSubmit = async (event) => {
   event.preventDefault();
 
   const id = gradeIdInput.value;
+  const studentName = studentNameInput.value.trim();
   const subject = subjectInput.value.trim();
   const marks = Number(marksInput.value);
 
-  if (!subject || Number.isNaN(marks)) {
-    showMessage("Please enter valid subject and marks.", "error");
+  if (!studentName || !subject || Number.isNaN(marks)) {
+    showMessage("Please enter valid student name, subject, and marks.", "error");
     return;
   }
 
@@ -120,7 +123,7 @@ const handleSubmit = async (event) => {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ subject, marks })
+      body: JSON.stringify({ studentName, subject, marks })
     });
 
     const data = await response.json();
@@ -140,6 +143,7 @@ const handleSubmit = async (event) => {
 const handleTableClick = async (event) => {
   if (event.target.classList.contains("edit-btn")) {
     gradeIdInput.value = event.target.dataset.id;
+    studentNameInput.value = event.target.dataset.name;
     subjectInput.value = event.target.dataset.subject;
     marksInput.value = event.target.dataset.marks;
     formTitle.textContent = "Edit Subject Grade";

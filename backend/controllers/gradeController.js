@@ -31,16 +31,23 @@ const getAllGrades = async (req, res, next) => {
 
 const createGrade = async (req, res, next) => {
   try {
-    const { subject, marks } = req.body;
+    const { studentName, subject, marks } = req.body;
 
-    if (!subject || marks === undefined || marks === null || marks === "") {
+    if (
+      !studentName ||
+      !subject ||
+      marks === undefined ||
+      marks === null ||
+      marks === ""
+    ) {
       return res.status(400).json({
         success: false,
-        message: "Subject and marks are required"
+        message: "Student name, subject, and marks are required"
       });
     }
 
     const newGrade = await Grade.create({
+      studentName,
       subject,
       marks
     });
@@ -58,18 +65,24 @@ const createGrade = async (req, res, next) => {
 const updateGrade = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { subject, marks } = req.body;
+    const { studentName, subject, marks } = req.body;
 
-    if (!subject || marks === undefined || marks === null || marks === "") {
+    if (
+      !studentName ||
+      !subject ||
+      marks === undefined ||
+      marks === null ||
+      marks === ""
+    ) {
       return res.status(400).json({
         success: false,
-        message: "Subject and marks are required"
+        message: "Student name, subject, and marks are required"
       });
     }
 
     const updatedGrade = await Grade.findByIdAndUpdate(
       id,
-      { subject, marks },
+      { studentName, subject, marks },
       { new: true, runValidators: true }
     );
 
@@ -118,4 +131,3 @@ module.exports = {
   updateGrade,
   deleteGrade
 };
-
