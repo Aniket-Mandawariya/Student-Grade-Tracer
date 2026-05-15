@@ -7,86 +7,110 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Manrope:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="page">
-      <header class="hero card hero-card">
-        <div class="hero-orb hero-orb-one"></div>
-        <div class="hero-orb hero-orb-two"></div>
-        <div class="hero-copy">
-          <p class="eyebrow">Student Grade Tracker</p>
-          <h1>Organize marks, monitor progress, and manage grades with ease</h1>
-          <p class="hero-text">
-            Keep subject records in one clean dashboard, update grades anytime,
-            and let the app calculate your average marks and GPA automatically.
+    <div class="shell">
+      <aside class="sidebar">
+        <div class="brand-block">
+          <p class="brand-kicker">Academic Control</p>
+          <h1>Student Grade Tracker</h1>
+          <p class="brand-copy">
+            A cleaner way to record students, track marks, and manage academic performance.
           </p>
-
-          <div class="hero-tags">
-            <span class="hero-tag">Responsive Dashboard</span>
-            <span class="hero-tag">Live GPA Summary</span>
-            <span class="hero-tag">Simple CRUD Workflow</span>
-          </div>
         </div>
 
-        <div class="hero-panel">
-          <div class="hero-chip">Full-Stack CRUD Project</div>
-          <div class="hero-metric">
-            <span>Academic Overview</span>
-            <strong id="hero-average">0.00%</strong>
-            <small>Live average based on saved subject marks</small>
-          </div>
-
-          <div class="hero-mini-stats">
-            <div class="mini-stat">
-              <span>Subjects</span>
-              <strong id="hero-subjects">0</strong>
+        <div class="spotlight-card">
+          <p class="panel-label">Live Overview</p>
+          <strong id="hero-average">0.00%</strong>
+          <span>Current average marks</span>
+          <div class="spotlight-grid">
+            <div>
+              <small>Total Subjects</small>
+              <b id="hero-subjects">0</b>
             </div>
-            <div class="mini-stat">
-              <span>GPA</span>
-              <strong id="hero-gpa">0.00</strong>
+            <div>
+              <small>Current GPA</small>
+              <b id="hero-gpa">0.00</b>
             </div>
           </div>
         </div>
-      </header>
 
-      <main class="dashboard">
-        <section class="left-column">
-          <section class="card form-card">
-            <div class="section-head">
+        <div class="guide-card">
+          <p class="panel-label">Workflow</p>
+          <ul class="guide-list">
+            <li>Add student details and marks.</li>
+            <li>Edit records whenever results change.</li>
+            <li>Watch the dashboard update automatically.</li>
+          </ul>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="section-tag">Smart Records</p>
+            <h2>Manage grades from a sharper, more app-like template</h2>
+          </div>
+          <button type="button" class="action-button ghost-button" id="refresh-btn">
+            Refresh Data
+          </button>
+        </header>
+
+        <section class="summary-strip">
+          <article class="metric-card accent-card">
+            <span>Total Subjects</span>
+            <strong id="total-subjects">0</strong>
+            <small>Saved in database</small>
+          </article>
+          <article class="metric-card dark-card">
+            <span>Average Marks</span>
+            <strong id="average-marks">0.00</strong>
+            <small>Updated after every CRUD action</small>
+          </article>
+          <article class="metric-card soft-card">
+            <span>GPA</span>
+            <strong id="gpa">0.00</strong>
+            <small>Calculated on a 4.0 scale</small>
+          </article>
+        </section>
+
+        <section class="content-grid">
+          <section class="editor-panel">
+            <div class="panel-head">
               <div>
-                <p class="section-label">Manage Grades</p>
-                <h2 id="form-title">Add New Subject</h2>
+                <p class="section-tag">Entry Form</p>
+                <h3 id="form-title">Add New Subject</h3>
               </div>
             </div>
 
-            <form id="grade-form">
+            <form id="grade-form" class="grade-form">
               <input type="hidden" id="grade-id" />
 
-              <div class="form-group">
+              <div class="input-block">
                 <label for="student-name">Student Name</label>
                 <input
                   type="text"
                   id="student-name"
-                  placeholder="Example: Aniket Mandawariya"
+                  placeholder="Enter student full name"
                   required
                 />
               </div>
 
-              <div class="form-group">
+              <div class="input-block">
                 <label for="subject">Subject Name</label>
                 <input
                   type="text"
                   id="subject"
-                  placeholder="Example: Mathematics"
+                  placeholder="Enter subject name"
                   required
                 />
               </div>
 
-              <div class="form-group">
+              <div class="input-block">
                 <label for="marks">Marks</label>
                 <input
                   type="number"
@@ -98,68 +122,36 @@
                 />
               </div>
 
-              <div class="button-row">
-                <button type="submit" class="btn primary" id="submit-btn">
+              <div class="form-actions">
+                <button type="submit" class="action-button primary-button" id="submit-btn">
                   Add Grade
                 </button>
-                <button type="button" class="btn secondary hidden" id="cancel-btn">
+                <button
+                  type="button"
+                  class="action-button ghost-button hidden"
+                  id="cancel-btn"
+                >
                   Cancel Edit
                 </button>
               </div>
             </form>
+
             <p id="message-box" class="message-box"></p>
           </section>
 
-          <section class="card note-card">
-            <p class="section-label">Quick Tips</p>
-            <ul class="tips-list">
-              <li>Add marks from 0 to 100 for each subject.</li>
-              <li>Use the edit button whenever a grade changes.</li>
-              <li>Delete records you no longer want in the dashboard.</li>
-            </ul>
-          </section>
-        </section>
-
-        <section class="right-column">
-          <section class="stats-grid">
-            <article class="card stat-box stat-primary">
-              <span>Total Subjects</span>
-              <strong id="total-subjects">0</strong>
-              <small>Subjects currently saved</small>
-            </article>
-
-            <article class="card stat-box stat-accent">
-              <span>Average Marks</span>
-              <strong id="average-marks">0.00</strong>
-              <small>Overall academic average</small>
-            </article>
-
-            <article class="card stat-box stat-warm">
-              <span>GPA</span>
-              <strong id="gpa">0.00</strong>
-              <small>Calculated on a 4.0 scale</small>
-            </article>
-          </section>
-
-          <section class="card table-card">
-            <div class="table-header">
+          <section class="records-panel">
+            <div class="panel-head">
               <div>
-                <p class="section-label">Records</p>
-                <h2>All Subject Grades</h2>
-                <p class="table-subtext">
-                  Review each saved subject, performance level, and available actions.
-                </p>
+                <p class="section-tag">Student Records</p>
+                <h3>Saved Grades</h3>
               </div>
-              <button type="button" class="btn secondary" id="refresh-btn">
-                Refresh Data
-              </button>
             </div>
 
             <div class="table-wrapper">
               <table>
                 <thead>
                   <tr>
-                    <th>Student Name</th>
+                    <th>Student</th>
                     <th>Subject</th>
                     <th>Marks</th>
                     <th>Actions</th>
