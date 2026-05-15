@@ -234,4 +234,4 @@ git push -u origin main
 - Express routes and Mongoose models are used.
 - The UI is beginner-friendly and responsive.
 ## Live demo
-student-grade-tracer-production.up.railway.app
+https://student-grade-tracer-production.up.railway.app/
