@@ -15,6 +15,8 @@ const totalSubjectsEl = document.getElementById("total-subjects");
 const averageMarksEl = document.getElementById("average-marks");
 const gpaEl = document.getElementById("gpa");
 const heroAverageEl = document.getElementById("hero-average");
+const heroSubjectsEl = document.getElementById("hero-subjects");
+const heroGpaEl = document.getElementById("hero-gpa");
 
 const showMessage = (message, type = "success") => {
   messageBox.textContent = message;
@@ -39,6 +41,33 @@ const updateSummary = (summary) => {
   averageMarksEl.textContent = summary.averageMarks.toFixed(2);
   gpaEl.textContent = summary.gpa.toFixed(2);
   heroAverageEl.textContent = `${summary.averageMarks.toFixed(2)}%`;
+  heroSubjectsEl.textContent = summary.totalSubjects;
+  heroGpaEl.textContent = summary.gpa.toFixed(2);
+};
+
+const getInitials = (name) => {
+  return name
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0].toUpperCase())
+    .join("");
+};
+
+const getPerformance = (marks) => {
+  if (marks >= 85) {
+    return { label: "Excellent", className: "status-excellent" };
+  }
+
+  if (marks >= 70) {
+    return { label: "Good", className: "status-good" };
+  }
+
+  if (marks >= 50) {
+    return { label: "Average", className: "status-average" };
+  }
+
+  return { label: "Needs Work", className: "status-needs-improvement" };
 };
 
 const renderGrades = (grades) => {
@@ -52,15 +81,33 @@ const renderGrades = (grades) => {
   }
 
   tableBody.innerHTML = grades
-    .map(
-      (grade) => `
+    .map((grade) => {
+      const studentName = grade.studentName || "-";
+      const performance = getPerformance(grade.marks);
+
+      return `
         <tr>
-          <td>${grade.studentName || "-"}</td>
-          <td>${grade.subject}</td>
-          <td>${grade.marks}</td>
-          <td>
+          <td class="student-cell" data-label="Student">
+            <div class="student-inline">
+              <div class="student-avatar">${getInitials(studentName)}</div>
+              <div>
+                <span class="student-name-text">${studentName}</span>
+                <span class="student-meta">Grade record</span>
+              </div>
+            </div>
+          </td>
+          <td data-label="Subject">
+            <span class="subject-pill">${grade.subject}</span>
+          </td>
+          <td class="marks-cell" data-label="Marks">
+            <div class="marks-block">
+              <span class="marks-value">${grade.marks}</span>
+              <span class="status-badge ${performance.className}">${performance.label}</span>
+            </div>
+          </td>
+          <td class="actions-cell" data-label="Actions">
             <div class="action-buttons">
-              <button class="action-btn secondary edit-btn" data-id="${grade._id}" data-name="${grade.studentName || ""}" data-subject="${grade.subject}" data-marks="${grade.marks}">
+              <button class="action-btn secondary edit-btn" data-id="${grade._id}" data-name="${studentName}" data-subject="${grade.subject}" data-marks="${grade.marks}">
                 Edit
               </button>
               <button class="action-btn danger delete-btn" data-id="${grade._id}">
@@ -69,8 +116,8 @@ const renderGrades = (grades) => {
             </div>
           </td>
         </tr>
-      `
-    )
+      `;
+    })
     .join("");
 };
 
